@@ -1,0 +1,64 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  padding: 4px;
+}
+
+.chat {
+  position: relative;
+  overflow: hidden;
+  color: white;
+  display: flex;
+  gap: 6px;
+  padding: 10px;
+  border-radius: 8px;
+  user-select: none;
+  cursor: pointer;
+  transition: all 0.1s ease-out;
+}
+
+.chat::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 0%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.2);
+  z-index: 0;
+  pointer-events: none;
+}
+
+.chat.animate::before {
+  animation: centerWave 0.8s ease forwards;
+}
+
+@keyframes centerWave {
+  0% {
+    width: 2%;
+    opacity: 1;
+  }
+  100% {
+    width: 200%;
+    opacity: 0;
+  }
+}
+
+.chat.active {
+  background-color: rgb(135, 116, 225); /* Purple */
+}
+
+.chat:not(.active):hover {
+  background-color: #26202d;
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  fill: white;
+}
+
+.chat span {
+  font-size: 1.1rem;
+}

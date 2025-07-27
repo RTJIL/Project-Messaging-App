@@ -1,0 +1,96 @@
+/* Register.module.css */
+.formContainer {
+  max-width: 400px;
+  margin: 10rem auto;
+  padding: 2rem;
+  background-color: #1f1d2b;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  color: #fff;
+  font-family: 'Lora', sans-serif;
+}
+
+.formContainer h1 {
+  text-align: center;
+  margin-bottom: 1.2rem;
+  font-size: 2rem;
+  color: #ffffff;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.link {
+  color: #7c5fff;
+  text-decoration: none;
+  font-weight: 500;
+  margin-left: 0.25rem;
+  max-width: fit-content;
+}
+
+.link:hover {
+  text-decoration: underline;
+}
+
+.form input {
+  padding: 0.75rem 1rem;
+  background-color: #2e2c3a;
+  border: 1px solid #3e3c50;
+  border-radius: 8px;
+  color: #fff;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+}
+
+.form input:focus {
+  border-color: #7c5fff;
+  outline: none;
+}
+
+.inputGroup {
+  position: relative;
+  margin-bottom: 1.5rem;
+}
+
+.inputError {
+  border-color: #ff3860 !important;
+}
+
+.errorTooltip {
+  position: absolute;
+  right: 0%;
+  top: 0%;
+  transform: translateY(-50%);
+  background-color: #ff3860;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  white-space: nowrap;
+  pointer-events: none;
+  z-index: 10;
+  box-shadow: 0 0 6px rgba(255, 56, 96, 0.6);
+}
+
+.form button {
+  padding: 0.75rem;
+  background: linear-gradient(to right, #7c5fff, #5c3dff);
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.form button:hover {
+  background: linear-gradient(to right, #6b4dff, #4920ff);
+}
+
+.form button:active {
+  transform: scale(0.97);
+}

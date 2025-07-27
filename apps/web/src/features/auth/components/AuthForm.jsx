@@ -1,0 +1,98 @@
+import { useState } from 'react'
+import { Link } from 'react-router-dom'
+import styles from '../AuthForm.module.css'
+
+export default function AuthForm({ login = false }) {
+  const [form, setForm] = useState({
+    username: '',
+    password: '',
+    cpassword: '',
+  })
+  const [errors, setErrors] = useState({})
+
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value })
+    setErrors({ ...errors, [e.target.name]: '' })
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    const newErrors = {}
+
+    if (!form.username.trim()) newErrors.username = 'Username is required!'
+    if (!form.password) newErrors.password = 'Password is required!'
+    if (!login && form.password !== form.cpassword)
+      newErrors.cpassword = 'Passwords do not match!'
+
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors)
+      return
+    }
+
+    setErrors({})
+    alert(
+      `${login ? 'Logging in' : 'Registering'} with username: ${form.username}`
+    )
+    // API call logic here...
+  }
+
+  return (
+    <div className={styles.formContainer}>
+      <h1>{login ? 'Login' : 'Register'}</h1>
+      <form onSubmit={handleSubmit} className={styles.form} noValidate>
+        <Link to={login ? '/register' : '/login'} className={styles.link}>
+          {login ? 'or register' : 'or login'}
+        </Link>
+
+        <div className={styles.inputGroup}>
+          <input
+            type="text"
+            placeholder="Username"
+            name="username"
+            autoComplete="off"
+            value={form.username}
+            onChange={handleChange}
+            className={errors.username ? styles.inputError : ''}
+          />
+          {errors.username && (
+            <span className={styles.errorTooltip}>{errors.username}</span>
+          )}
+        </div>
+
+        <div className={styles.inputGroup}>
+          <input
+            type="password"
+            placeholder="Password"
+            name="password"
+            autoComplete="off"
+            value={form.password}
+            onChange={handleChange}
+            className={errors.password ? styles.inputError : ''}
+          />
+          {errors.password && (
+            <span className={styles.errorTooltip}>{errors.password}</span>
+          )}
+        </div>
+
+        {!login && (
+          <div className={styles.inputGroup}>
+            <input
+              type="password"
+              placeholder="Confirm password"
+              name="cpassword"
+              autoComplete="off"
+              value={form.cpassword}
+              onChange={handleChange}
+              className={errors.cpassword ? styles.inputError : ''}
+            />
+            {errors.cpassword && (
+              <span className={styles.errorTooltip}>{errors.cpassword}</span>
+            )}
+          </div>
+        )}
+
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+  )
+}
