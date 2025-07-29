@@ -86,7 +86,7 @@ export default function ChatList() {
       </div>
     )
 
-  if (!loading /* && users.length === 0 */) {
+  if (loading && users.length === 0) {
     return (
       <div className={styles.empty}>
         <Ghost size={48} color="#a78bfa" style={{ marginBottom: '1rem' }} />
