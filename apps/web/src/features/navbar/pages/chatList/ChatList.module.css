@@ -1,12 +1,132 @@
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 2rem;
+  border: 2px dashed #7c3aed44;
+  border-radius: 1rem;
+  background: rgba(39, 32, 55, 0.8); /* Matches your dark background */
+  color: #cfcaf5;
+  font-size: 1.3rem;
+  font-weight: 500;
+  text-align: center;
+  box-shadow: 0 0 15px rgba(124, 58, 237, 0.15);
+  animation: fadeIn 0.4s ease-in-out;
+  transition: all 0.3s ease;
+  margin-top: 2rem;
+  backdrop-filter: blur(4px);
+}
+
+.empty:hover {
+  background-color: rgba(56, 47, 77, 0.9);
+  border-color: #a78bfa;
+  color: #fff;
+}
+
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+.loading-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  /* align-items: flex-start; */
+}
+
+.loader {
+  width: 60%;
+  height: 40px;
+  background: linear-gradient(
+    90deg,
+    rgba(131, 76, 186, 0.3) 25%,
+    rgba(124, 58, 237, 0.3) 37%,
+    rgba(135, 75, 239, 0.3) 63%
+  );
+  background-size: 400% 100%;
+  animation: wave 6s ease-in-out infinite;
+  border-radius: 20px;
+  margin: 10px 10px;
+
+  border: 1px solid transparent;
+
+  box-shadow: 0 0 6px rgba(124, 58, 237, 0.1);
+}
+
+@keyframes wave {
+  0% {
+    background-position: 200% 0;
+  }
+  50% {
+    background-position: 0% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
 .container {
+  flex: 1;
   display: flex;
   flex-direction: column;
   padding: 4px;
+  max-height: 810px;
+  overflow-y: auto;
+
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+  scroll-behavior: smooth;
+  scrollbar-gutter: stable;
+}
+
+.container::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+  background: transparent;
+  transition: background-color 0.3s ease;
+}
+
+.container::-webkit-scrollbar-thumb {
+  background-color: transparent;
+  border-radius: 20px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+  transition: background-color 0.3s ease;
+}
+
+.container:hover::-webkit-scrollbar-thumb {
+  background-color: #7c3aed;
+  border-color: transparent;
+}
+
+.container:hover::-webkit-scrollbar {
+  background-color: transparent;
+}
+
+.container:hover {
+  scrollbar-color: #7c3aed transparent;
+}
+
+.container::-webkit-scrollbar-button {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
 }
 
 .chat {
   position: relative;
   overflow: hidden;
+  min-height: fit-content;
   color: white;
   display: flex;
   gap: 6px;
@@ -17,36 +137,27 @@
   transition: all 0.1s ease-out;
 }
 
-.chat::before {
-  content: '';
+.ripple {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 0%;
-  height: 100%;
-  background: rgba(255, 255, 255, 0.2);
-  z-index: 0;
+  width: 100px;
+  height: 100px;
+  background: rgba(178, 163, 255, 0.4);
+  border-radius: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  animation: ripple-effect 0.9s ease-out forwards;
   pointer-events: none;
+  z-index: 1;
 }
 
-.chat.animate::before {
-  animation: centerWave 0.8s ease forwards;
-}
-
-@keyframes centerWave {
-  0% {
-    width: 2%;
-    opacity: 1;
-  }
-  100% {
-    width: 200%;
+@keyframes ripple-effect {
+  to {
+    transform: translate(-50%, -50%) scale(8);
     opacity: 0;
   }
 }
 
 .chat.active {
-  background-color: rgb(135, 116, 225); /* Purple */
+  background-color: rgb(135, 116, 225);
 }
 
 .chat:not(.active):hover {
@@ -57,6 +168,7 @@
   width: 40px;
   height: 40px;
   fill: white;
+  filter: invert(1);
 }
 
 .chat span {

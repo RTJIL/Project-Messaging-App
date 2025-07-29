@@ -1,6 +1,7 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import styles from '../AuthForm.module.css'
+import { loginUser, registerUser } from '../services/api'
 
 export default function AuthForm({ login = false }) {
   const [form, setForm] = useState({
@@ -10,13 +11,14 @@ export default function AuthForm({ login = false }) {
   })
   const [errors, setErrors] = useState({})
 
+  const navigate = useNavigate()
+
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value })
     setErrors({ ...errors, [e.target.name]: '' })
   }
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
+  const handleSubmit = async (formData) => {
     const newErrors = {}
 
     if (!form.username.trim()) newErrors.username = 'Username is required!'
@@ -30,16 +32,27 @@ export default function AuthForm({ login = false }) {
     }
 
     setErrors({})
-    alert(
-      `${login ? 'Logging in' : 'Registering'} with username: ${form.username}`
-    )
-    // API call logic here...
+
+    const { username, password } = Object.fromEntries(formData)
+
+    try {
+      if (login) {
+        await loginUser({ username, password })
+      } else {
+        await registerUser({ username, password })
+      }
+
+      navigate('/')
+    } catch (err) {
+      console.log(err)
+      setErrors(err.fields || { general: err.error || 'Something went wrong' })
+    }
   }
 
   return (
     <div className={styles.formContainer}>
       <h1>{login ? 'Login' : 'Register'}</h1>
-      <form onSubmit={handleSubmit} className={styles.form} noValidate>
+      <form action={handleSubmit} className={styles.form} noValidate>
         <Link to={login ? '/register' : '/login'} className={styles.link}>
           {login ? 'or register' : 'or login'}
         </Link>
@@ -90,7 +103,6 @@ export default function AuthForm({ login = false }) {
             )}
           </div>
         )}
-
         <button type="submit">Submit</button>
       </form>
     </div>

@@ -1,0 +1,198 @@
+.position-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 100%;
+}
+
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 10px;
+  min-width: 50%;
+}
+
+.skeletonMessage {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 12px;
+  background: #2e2a3d;
+  border-radius: 10px;
+}
+
+.skeletonAvatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: linear-gradient(90deg, #3f3a56 25%, #5a5377 50%, #3f3a56 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite linear;
+}
+
+.skeletonText {
+  flex: 1;
+  height: 14px;
+  border-radius: 6px;
+  background: linear-gradient(90deg, #3f3a56 25%, #5a5377 50%, #3f3a56 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite linear;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+.scroll-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 100%;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+  scroll-behavior: smooth;
+}
+
+.scroll-container:hover {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(178, 178, 178, 0.1) transparent;
+}
+
+.scroll-container::-webkit-scrollbar {
+  width: 6px;
+  background: transparent;
+  transition: opacity 0.3s;
+  opacity: 0;
+}
+
+.scroll-container:hover::-webkit-scrollbar {
+  opacity: 1;
+}
+
+.scroll-container::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.scroll-container::-webkit-scrollbar-thumb {
+  background-color: rgba(178, 178, 178, 0.1);
+  border-radius: 4px;
+  transition: background-color 0.2s;
+}
+
+.scroll-container:hover::-webkit-scrollbar-thumb {
+  background-color: rgba(178, 178, 178, 0.1);
+}
+
+.scroll-container::-webkit-scrollbar-button {
+  display: none;
+  height: 0;
+  width: 0;
+}
+
+.container {
+  flex: 1;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-width: 400px;
+  max-height: 870px;
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.section:last-of-type {
+  padding-bottom: 1.4rem;
+}
+
+.date {
+  text-align: center;
+  border-radius: 12px;
+  padding: 8px;
+  margin: 16px 0;
+}
+
+.message {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  max-width: 80%;
+}
+
+.message-left {
+  align-self: flex-start;
+}
+
+.message-right {
+  align-self: flex-end;
+}
+
+.content {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.message-right .content {
+  flex-direction: row-reverse;
+  text-align: right;
+}
+
+.message-right .username {
+  text-align: right;
+  margin-right: 4px;
+}
+
+.message .content {
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
+}
+
+.content {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  flex-wrap: nowrap;
+}
+
+.avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  object-fit: cover;
+  fill: white;
+  filter: invert(1);
+}
+
+.text {
+  background-color: #50495f;
+  padding: 8px 10px;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  color: white;
+  white-space: normal;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  max-width: 600px;
+}
+
+.username {
+  font-size: 0.75rem;
+  color: #aaa;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}

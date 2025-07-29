@@ -1,0 +1,52 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id       Int    @id @default(autoincrement())
+  username String @unique
+  password String
+
+  avatarUrl String @default("https://pzayzfkambqnvlzxqlbb.supabase.co/storage/v1/object/public/messenger-sm//anonym.svg")
+
+  sentMessages Message[] @relation("SentMessages")
+  channelsA    Channel[] @relation("UserAChannels")
+  channelsB    Channel[] @relation("UserBChannels")
+}
+
+model Channel {
+  id String @id @default(uuid())
+
+  userAId Int
+  userA   User @relation("UserAChannels", fields: [userAId], references: [id])
+
+  userBId Int
+  userB   User @relation("UserBChannels", fields: [userBId], references: [id])
+
+  messages Message[]
+
+  @@unique([userAId, userBId], name: "userAId_userBId")
+}
+
+model Message {
+  id        Int      @id @default(autoincrement())
+  content   String
+  createdAt DateTime @default(now())
+
+  senderId Int
+  sender   User @relation("SentMessages", fields: [senderId], references: [id])
+
+  channelId String
+  channel   Channel @relation(fields: [channelId], references: [id])
+}

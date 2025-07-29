@@ -1,5 +1,104 @@
-.dropdown {
-  font-size: 1.8rem;
+.dropdown-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  user-select: none;
+}
+
+.icon {
+  font-size: 2.4rem;
   color: white;
   cursor: pointer;
+  padding: 6px;
+  border-radius: 6px;
+  transition: background-color 0.2s ease;
+}
+
+.icon.active {
+  background-color: #393746;
+}
+
+.activeIcon {
+  background-color: #393746;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 70px;
+  left: 10px;
+  background-color: #2c2a36;
+  padding: 12px 16px;
+  border-radius: 10px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 180px;
+  animation: fadeIn 0.2s ease;
+  user-select: none;
+}
+
+.active {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: all;
+}
+
+.profile {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-bottom: 1px solid #444;
+  padding-bottom: 10px;
+}
+
+.profile img {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+  filter: brightness(0) invert(1);
+}
+
+.profile p {
+  color: white;
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+.logout {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.logout svg {
+  color: #e57373;
+  font-size: 1.2rem;
+}
+
+.logout button {
+  background: none;
+  border: none;
+  color: #e57373;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.logout:hover button {
+  color: #ef5350;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

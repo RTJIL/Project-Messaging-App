@@ -3,5 +3,17 @@
     {
       "mode": "auto"
     }
+  ],
+  "sqltools.connections": [
+    {
+      "previewLimit": 50,
+      "server": "localhost",
+      "port": 5432,
+      "askForPassword": true,
+      "driver": "PostgreSQL",
+      "username": "rtjil",
+      "database": "top_messenger",
+      "name": "sqltools_connection"
+    }
   ]
 }

@@ -20,6 +20,7 @@ export default function SearchBar() {
           onChange={(e) => setSearch(e.target.value)}
           placeholder="Search..."
           className={styles.input}
+          autoComplete='off'
         />
       </div>
     </form>

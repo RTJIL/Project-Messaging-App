@@ -1,0 +1,60 @@
+.container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.container header {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: white;
+  padding: 14px;
+  background-color: #1f1a24;
+}
+
+.container header::before,
+.container header::after,
+.container header .bottom-line {
+  content: '';
+  position: absolute;
+  background-color: #161414;
+}
+
+.container header::before {
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 1px;
+}
+
+.container header::after {
+  top: 0;
+  bottom: 0;
+  right: 0;
+  width: 1px;
+}
+
+.container header .bottom-line {
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 1px;
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  fill: white;
+  filter: invert(1);
+}
+
+.chatContainer {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-height: 870px;
+}
