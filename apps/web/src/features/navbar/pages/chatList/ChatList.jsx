@@ -103,10 +103,16 @@ export default function ChatList() {
     )
   }
 
+  const sortedUsers = [...users].sort((a, b) => {
+    if (a.id === userData.id) return -1
+    if (b.id === userData.id) return 1
+    return 0
+  })
+
   return (
     <div className={styles.container}>
       {Array.isArray(users) &&
-        users.map((user) => (
+        sortedUsers.map((user) => (
           <div
             className={`
             ${styles.chat} 
@@ -119,7 +125,7 @@ export default function ChatList() {
           >
             <div className={styles.avatarWrapper}>
               {channelLoadingId === user.id ? (
-                <div className={styles.loaderMini}></div> 
+                <div className={styles.loaderMini}></div>
               ) : user.id === userData.id ? (
                 <FaBookmark className={styles['avatarIcon']} />
               ) : (
