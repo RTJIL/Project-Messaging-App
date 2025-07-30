@@ -8,7 +8,7 @@ import { createMessage } from './services/api'
 export default function ChatWindow() {
   const location = useLocation()
   const navigate = useNavigate()
-  console.log('Location state', location.state)
+  // console.log('Location state', location.state)
 
   const { channelId } = useParams()
 

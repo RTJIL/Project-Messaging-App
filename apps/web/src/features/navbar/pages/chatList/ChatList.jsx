@@ -51,7 +51,7 @@ export default function ChatList() {
           state: { data, currentUid: userData.id },
         })
       }
-      console.log(data)
+      // console.log(data)
     } catch (err) {
       console.error('Failed to create or get channel:', err.message)
     } finally {
