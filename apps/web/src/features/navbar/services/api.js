@@ -1,9 +1,9 @@
 import formatUrl from '../../../utils/formatUrl'
 
 const apiUrl = import.meta.env.VITE_API_URL
-const token = localStorage.getItem('Bearer')
 
 export async function getAllUsers() {
+  const token = localStorage.getItem('Bearer')
   const res = await fetch(`${formatUrl(apiUrl)}api/users`, {
     mode: 'cors',
     method: 'GET',
@@ -24,6 +24,7 @@ export async function getAllUsers() {
 }
 
 export async function getOrCreateChannel(userAId, userBId) {
+  const token = localStorage.getItem('Bearer')
   const res = await fetch(`${formatUrl(apiUrl)}api/channels`, {
     mode: 'cors',
     method: 'POST',
@@ -34,7 +35,7 @@ export async function getOrCreateChannel(userAId, userBId) {
     body: JSON.stringify({ userAId, userBId }),
   })
 
-  const data = res.json()
+  const data = await res.json()
 
   return data
 }
