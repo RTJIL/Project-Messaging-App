@@ -33,6 +33,8 @@ export default function ChatList() {
 
     const id = Number(el.dataset.id)
 
+    if (channelLoadingId !== null || id === activeChat) return
+
     setRipples((prev) => ({
       ...prev,
       [id]: { x, y, key: Date.now() },
@@ -108,7 +110,11 @@ export default function ChatList() {
       {Array.isArray(users) &&
         users.map((user) => (
           <div
-            className={`${styles.chat} ${activeChat === user.id ? styles.active : ''}`}
+            className={`
+            ${styles.chat} 
+            ${activeChat === user.id ? styles.active : ''} 
+            ${channelLoadingId !== null && channelLoadingId !== user.id ? styles.disabled : ''}
+            `}
             onClick={handleClick}
             key={user.id}
             data-id={user.id}
