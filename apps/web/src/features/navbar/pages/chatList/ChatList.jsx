@@ -101,6 +101,8 @@ export default function ChatList() {
     )
   }
 
+  // if (channelLoadingId !== null) return
+
   return (
     <div className={styles.container}>
       {Array.isArray(users) &&
