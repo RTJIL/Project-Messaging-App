@@ -2,24 +2,23 @@ import express from 'express'
 import cors from 'cors'
 import morgan from 'morgan'
 import { routes } from './routes/index.js'
-import { CORS_ORIGIN } from './config/config.js'
 
 const app = express()
 
-const allowedOrigins = [CORS_ORIGIN]
-
 const corsOptions = {
   origin: function (origin, callback) {
-    console.log('Incoming origin:', origin)
-    if (!origin || allowedOrigins.includes(origin)) {
+    if (!origin) return callback(null, true) // allow mobile apps, curl, etc.
+
+    const vercelRegex = /^https?:\/\/(.+\.)?vercel\.app$/
+    const allowedLocalhost = ['http://127.0.0.1:5173']
+
+    if (vercelRegex.test(origin) || allowedLocalhost.includes(origin)) {
       callback(null, true)
     } else {
-      console.warn('Blocked by CORS:', origin)
       callback(new Error('Not allowed by CORS'))
     }
   },
   credentials: true,
-  optionsSuccessStatus: 200,
 }
 
 app.use(cors(corsOptions))
