@@ -1,5 +1,6 @@
 import styles from './ChatList.module.css'
 import Avatar from '/src/assets/anonym.svg?react'
+import { FaBookmark } from 'react-icons/fa6'
 import { getAllUsers, getOrCreateChannel } from '../../services/api'
 import getUserDataFromJWT from '../../../../utils/getUserDataFromJWT'
 import { useState, useEffect } from 'react'
@@ -9,6 +10,8 @@ import { Ghost } from 'lucide-react'
 export default function ChatList() {
   const userData = getUserDataFromJWT()
   const localStorageKey = `activeChat-${userData.id}`
+
+  const [channelLoadingId, setChannelLoadingId] = useState(null)
 
   const [activeChat, setActiveChat] = useState(() => {
     const stored = localStorage.getItem(localStorageKey)
@@ -36,6 +39,7 @@ export default function ChatList() {
     }))
 
     setActiveChat(id)
+    setChannelLoadingId(id)
 
     const userData = getUserDataFromJWT()
     try {
@@ -48,6 +52,8 @@ export default function ChatList() {
       console.log(data)
     } catch (err) {
       console.error('Failed to create or get channel:', err.message)
+    } finally {
+      setChannelLoadingId(null)
     }
   }
 
@@ -105,12 +111,22 @@ export default function ChatList() {
             key={user.id}
             data-id={user.id}
           >
-            <img
-              src={user.avatarUrl || Avatar}
-              alt="avatar"
-              className={styles.avatar}
-            />
-            <span className={styles.title}>{user.username}</span>
+            <div className={styles.avatarWrapper}>
+              {channelLoadingId === user.id ? (
+                <div className={styles.loaderMini}></div> // 🔄 your mini spinner
+              ) : user.id === userData.id ? (
+                <FaBookmark className={styles['avatarIcon']} />
+              ) : (
+                <img
+                  src={user.avatarUrl || Avatar}
+                  alt="avatar"
+                  className={styles.avatar}
+                />
+              )}
+            </div>
+            <span className={styles.title}>
+              {user.id === userData.id ? 'Personal' : user.username}
+            </span>
 
             {ripples[user.id] && (
               <span

@@ -3,7 +3,7 @@ import { formatDate } from '../../../../utils/formatDate'
 import { useState, useEffect, useRef } from 'react'
 
 export default function MessageList({ messages, currentUid }) {
-  const [loading, setLoading] = useState(true)
+  // const [loading, setLoading] = useState(true)
   let lastDate = null
 
   const bottomRef = useRef(null)
@@ -14,14 +14,14 @@ export default function MessageList({ messages, currentUid }) {
     }
   }, [messages])
 
-  useEffect(() => {
+  /* useEffect(() => {
     if (messages?.length >= 0) {
       const timer = setTimeout(() => setLoading(false), 100)
       return () => clearTimeout(timer)
     }
-  }, [messages])
+  }, [messages]) */
 
-  if (loading)
+  /* if (loading)
     return (
       <div className={styles['position-container']}>
         <div className={styles['loading-container']}>
@@ -33,7 +33,7 @@ export default function MessageList({ messages, currentUid }) {
           ))}
         </div>
       </div>
-    )
+    ) */
 
   return (
     <div className={styles['scroll-container']}>

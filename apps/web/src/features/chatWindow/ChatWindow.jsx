@@ -26,8 +26,8 @@ export default function ChatWindow() {
     const content = message.trim()
     if (!content) return
 
-    setMessage('') // clear textarea instantly
-    setLoading(true) // show loading spinner or disable button
+    setMessage('') 
+    setLoading(true) 
 
     try {
       const newMessage = await createMessage(content, channelId)
@@ -35,7 +35,7 @@ export default function ChatWindow() {
     } catch (err) {
       console.error('Failed to create message:', err.message)
     } finally {
-      setLoading(false) // done sending, hide loading
+      setLoading(false) 
     }
   }
 

@@ -137,6 +137,29 @@
   transition: all 0.1s ease-out;
 }
 
+.avatarWrapper {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loaderMini {
+  width: 40px;
+  height: 40px;
+  border: 3px solid rgba(255, 255, 255, 0.2);
+  border-top-color: #a78bfa;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 .ripple {
   position: absolute;
   width: 100px;
@@ -169,6 +192,12 @@
   height: 40px;
   fill: white;
   filter: invert(1);
+}
+
+.avatarIcon {
+  width: 40px;
+  height: 40px;
+  fill: #c6b3ff;
 }
 
 .chat span {
