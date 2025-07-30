@@ -1,9 +1,9 @@
 import formatUrl from '../../../utils/formatUrl'
 
 const apiUrl = import.meta.env.VITE_API_URL
-const token = localStorage.getItem('Bearer')
 
 export async function createMessage(content, channelId) {
+  const token = localStorage.getItem('Bearer')
   const res = await fetch(`${formatUrl(apiUrl)}api/messages/${channelId}`, {
     mode: 'cors',
     method: 'POST',

@@ -2,8 +2,7 @@ import styles from './InputField.module.css'
 import { useRef } from 'react'
 import { IoSend } from 'react-icons/io5'
 
-export default function InputField({ hendleSend, message, setMessage }) {
-
+export default function InputField({ handleSend, message, setMessage }) {
   const textareaRef = useRef(null)
 
   const handleInput = () => {
@@ -14,9 +13,14 @@ export default function InputField({ hendleSend, message, setMessage }) {
     textarea.style.height = `${textarea.scrollHeight}px`
   }
 
+  const handleSubmit = (e) => {
+    e.preventDefault()  
+    handleSend()
+  }
+
   return (
     <div className={styles['form-container']}>
-      <form action={hendleSend} className={styles.form}>
+      <form onSubmit={handleSubmit} className={styles.form}>
         <textarea
           ref={textareaRef}
           onInput={handleInput}
@@ -26,7 +30,11 @@ export default function InputField({ hendleSend, message, setMessage }) {
           placeholder="Type your message..."
           rows={1}
         />
-        <button type="submit" className={styles.send}>
+        <button
+          type="submit"
+          className={styles.send}
+          disabled={!message.trim()}
+        >
           <IoSend className={styles.icon} />
         </button>
       </form>

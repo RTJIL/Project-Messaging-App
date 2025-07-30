@@ -16,13 +16,11 @@ export default function ChatWindow() {
 
   const [messages, setMessages] = useState(location.state.data.messages || [])
 
-  // console.log('messages', messages)
-
   const currentUid = location.state.currentUid
   const userA = location.state.data.userA
   const userB = location.state.data.userB
 
-  const hendleSend = async () => {
+  const handleSend = async () => {
     const content = message.trim()
     if (!content) return
 
@@ -61,7 +59,7 @@ export default function ChatWindow() {
         <InputField
           message={message}
           setMessage={setMessage}
-          hendleSend={hendleSend}
+          handleSend={handleSend}
         />
       </div>
     </main>
