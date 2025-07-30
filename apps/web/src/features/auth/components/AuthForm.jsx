@@ -4,6 +4,7 @@ import styles from '../AuthForm.module.css'
 import { loginUser, registerUser } from '../services/api'
 
 export default function AuthForm({ login = false }) {
+  const [loading, setLoading] = useState(false)
   const [form, setForm] = useState({
     username: '',
     password: '',
@@ -32,6 +33,7 @@ export default function AuthForm({ login = false }) {
     }
 
     setErrors({})
+    setLoading(true)
 
     const { username, password } = Object.fromEntries(formData)
 
@@ -46,6 +48,8 @@ export default function AuthForm({ login = false }) {
     } catch (err) {
       console.log(err)
       setErrors(err.fields || { general: err.error || 'Something went wrong' })
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -103,7 +107,9 @@ export default function AuthForm({ login = false }) {
             )}
           </div>
         )}
-        <button type="submit">Submit</button>
+        <button type="submit" disabled={loading}>
+          {loading ? <span className={styles.spinner} /> : 'Submit'}
+        </button>
       </form>
     </div>
   )
