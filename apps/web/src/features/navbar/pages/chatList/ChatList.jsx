@@ -103,8 +103,6 @@ export default function ChatList() {
     )
   }
 
-  // if (channelLoadingId !== null) return
-
   return (
     <div className={styles.container}>
       {Array.isArray(users) &&
@@ -121,7 +119,7 @@ export default function ChatList() {
           >
             <div className={styles.avatarWrapper}>
               {channelLoadingId === user.id ? (
-                <div className={styles.loaderMini}></div> // 🔄 your mini spinner
+                <div className={styles.loaderMini}></div> 
               ) : user.id === userData.id ? (
                 <FaBookmark className={styles['avatarIcon']} />
               ) : (
