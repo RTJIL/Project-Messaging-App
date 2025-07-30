@@ -2,16 +2,15 @@ import express from 'express'
 import cors from 'cors'
 import morgan from 'morgan'
 import { routes } from './routes/index.js'
+import { CORS_ORIGIN } from './config/config.js'
 
 const app = express()
 
-const allowedOrigins = [
-  'https://project-messaging-app-j5sxom4wk-rtjils-projects.vercel.app',
-  'http://localhost:5173',
-]
+const allowedOrigins = [CORS_ORIGIN]
 
 const corsOptions = {
   origin: function (origin, callback) {
+    console.log('Incoming origin:', origin)
     if (!origin || allowedOrigins.includes(origin)) {
       callback(null, true)
     } else {
@@ -24,7 +23,6 @@ const corsOptions = {
 }
 
 app.use(cors(corsOptions))
-// app.options('*', cors(corsOptions))
 
 app.use(morgan('dev'))
 app.use(express.json())
