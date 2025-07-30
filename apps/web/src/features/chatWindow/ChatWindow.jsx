@@ -12,7 +12,7 @@ export default function ChatWindow() {
 
   const { channelId } = useParams()
 
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(false)
 
   const [message, setMessage] = useState('')
 
