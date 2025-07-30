@@ -19,7 +19,9 @@ export default function AuthForm({ login = false }) {
     setErrors({ ...errors, [e.target.name]: '' })
   }
 
-  const handleSubmit = async (formData) => {
+  const handleSubmit = async (e) => {
+    e.preventDefault() //
+
     const newErrors = {}
 
     if (!form.username.trim()) newErrors.username = 'Username is required!'
@@ -33,11 +35,13 @@ export default function AuthForm({ login = false }) {
     }
 
     setErrors({})
-    setLoading(true)
 
-    const { username, password } = Object.fromEntries(formData)
+    const formData = new FormData(e.target) //
+    const { username, password } = Object.fromEntries(formData) //
 
     try {
+      setLoading(true)
+      console.log(loading)
       if (login) {
         await loginUser({ username, password })
       } else {
@@ -56,7 +60,7 @@ export default function AuthForm({ login = false }) {
   return (
     <div className={styles.formContainer}>
       <h1>{login ? 'Login' : 'Register'}</h1>
-      <form action={handleSubmit} className={styles.form} noValidate>
+      <form onSubmit={handleSubmit} className={styles.form} noValidate>
         <Link to={login ? '/register' : '/login'} className={styles.link}>
           {login ? 'or register' : 'or login'}
         </Link>
