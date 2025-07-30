@@ -12,6 +12,8 @@ export default function ChatWindow() {
 
   const { channelId } = useParams()
 
+  const [loading, setLoading] = useState(false)
+
   const [message, setMessage] = useState('')
 
   const [messages, setMessages] = useState(location.state.data.messages || [])
@@ -24,12 +26,16 @@ export default function ChatWindow() {
     const content = message.trim()
     if (!content) return
 
+    setMessage('') // clear textarea instantly
+    setLoading(true) // show loading spinner or disable button
+
     try {
       const newMessage = await createMessage(content, channelId)
       setMessages((prev) => [...prev, newMessage])
-      setMessage('')
     } catch (err) {
       console.error('Failed to create message:', err.message)
+    } finally {
+      setLoading(false) // done sending, hide loading
     }
   }
 
@@ -47,19 +53,20 @@ export default function ChatWindow() {
       <header className={styles.header}>
         <div className={styles['bottom-line']}></div>
         <img
-          src={currentUid !== userA ? userA.avatarUrl : userB.avatarUrl}
+          src={currentUid !== userA.id ? userA.avatarUrl : userB.avatarUrl}
           alt="avatar"
           className={styles.avatar}
         />
-        <span>{currentUid !== userA ? userA.username : userB.username}</span>
+        <span>{currentUid !== userA.id ? userA.username : userB.username}</span>
       </header>
 
       <div className={styles.chatContainer}>
-        <MessageList messages={messages} currentUid={currentUid}/>
+        <MessageList messages={messages} currentUid={currentUid} />
         <InputField
           message={message}
           setMessage={setMessage}
           handleSend={handleSend}
+          loading={loading}
         />
       </div>
     </main>

@@ -2,7 +2,12 @@ import styles from './InputField.module.css'
 import { useRef } from 'react'
 import { IoSend } from 'react-icons/io5'
 
-export default function InputField({ handleSend, message, setMessage }) {
+export default function InputField({
+  handleSend,
+  message,
+  setMessage,
+  loading,
+}) {
   const textareaRef = useRef(null)
 
   const handleInput = () => {
@@ -13,14 +18,15 @@ export default function InputField({ handleSend, message, setMessage }) {
     textarea.style.height = `${textarea.scrollHeight}px`
   }
 
-  const handleSubmit = (e) => {
-    e.preventDefault()  
-    handleSend()
-  }
-
   return (
     <div className={styles['form-container']}>
-      <form onSubmit={handleSubmit} className={styles.form}>
+      <form
+        onSubmit={(e) => {
+          e.preventDefault()
+          if (!loading) handleSend()
+        }}
+        className={styles.form}
+      >
         <textarea
           ref={textareaRef}
           onInput={handleInput}
@@ -29,13 +35,18 @@ export default function InputField({ handleSend, message, setMessage }) {
           className={styles['auto-textarea']}
           placeholder="Type your message..."
           rows={1}
+          disabled={loading}
         />
         <button
           type="submit"
           className={styles.send}
-          disabled={!message.trim()}
+          disabled={!message.trim() || loading}
         >
-          <IoSend className={styles.icon} />
+          {loading ? (
+            <span className={styles.spinner} />
+          ) : (
+            <IoSend className={styles.icon} />
+          )}
         </button>
       </form>
     </div>
