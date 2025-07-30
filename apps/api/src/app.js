@@ -6,7 +6,7 @@ import { routes } from './routes/index.js'
 const app = express()
 
 const allowedOrigins = [
-  'https://project-messaging-app-web-git-main-rtjils-projects.vercel.app',
+  'https://project-messaging-app-j5sxom4wk-rtjils-projects.vercel.app',
   'http://localhost:5173',
 ]
 
