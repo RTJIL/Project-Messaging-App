@@ -5,7 +5,27 @@ import { routes } from './routes/index.js'
 
 const app = express()
 
-app.use(cors())
+const allowedOrigins = [
+  'https://project-messaging-app-web-git-main-rtjils-projects.vercel.app',
+  'http://localhost:5173',
+]
+
+const corsOptions = {
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true)
+    } else {
+      console.warn('Blocked by CORS:', origin)
+      callback(new Error('Not allowed by CORS'))
+    }
+  },
+  credentials: true,
+  optionsSuccessStatus: 200,
+}
+
+app.use(cors(corsOptions))
+// app.options('*', cors(corsOptions))
+
 app.use(morgan('dev'))
 app.use(express.json())
 
